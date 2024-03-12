@@ -75,9 +75,19 @@ def utility(toast_duration, wait_duration, power = 1.0,toaster = 1):
 #    - find the optimum for all four parameters
 #    - define your own algorithm!
 def find_maximum():
-    # TODO: Implement an optimization algorithm. Tip: (1,1) is not the optimum!
-    return (1,1)
+    best_params = (1, 1)
+    best_utility = utility(*best_params)
 
+    step_size = 1
+
+    for toast_duration in range(1, 101, step_size):
+        for wait_duration in range(1, 101, step_size):
+            current_utility = utility(toast_duration, wait_duration)
+            if current_utility > best_utility:
+                best_utility = current_utility
+                best_params = (toast_duration, wait_duration)
+
+    return best_params
 # use the function and see what it thinks the optimum is
 optimum = find_maximum()
 print("Optimum:",optimum,)
